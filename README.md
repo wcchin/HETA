@@ -9,7 +9,11 @@ This is a rewritten of: https://github.com/canslab1/Identification-Algorithm/ , 
 #### Install
 
 ```sh
-pip install -e .
+git clone https://github.com/wcchin/HETA.git
+cd HETA
+pip install .
+# or 
+# pip install -e .
 ```
 
 #### Usage
