@@ -4,7 +4,7 @@
 
 Hierarchical Edge Type Analysis. An algorithm for detecting edge types using common neighbor concept.
 
-This is a rewritten of: https://github.com/canslab1/Identification-Algorithm/ , into convenient function that take NetworkX Graph objects, and to be compatible with Python3.  
+This is a rewritten of: [https://github.com/canslab1/Identification-Algorithm/](https://github.com/canslab1/Identification-Algorithm/) , into convenient function that take NetworkX Graph objects, and to be compatible with Python3.  
 
 ## Install
 
@@ -72,7 +72,8 @@ Many network researchers use intuitive or basic definitions when discussing the 
 Keywords: Network topology, Hierarchy of links, Common neighbor concept, Fingerprint analysis, Hierarchical community partition, Edge type analysis
 
 
-article url: https://www.sciencedirect.com/science/article/pii/S0378437119306375
+article url: [https://www.sciencedirect.com/science/article/pii/S0378437119306375](https://www.sciencedirect.com/science/article/pii/S0378437119306375)
 
 cite this as:  
-Huang C. Y., Chin, W. C. B., Fu, Y. H., & Tsai, Y. S. (in press) Beyond bond links in complex networks: Local bridges, global bridges and silk links. Physica A: Statistical Mechanics and its Applications. DOI: https://doi.org/10.1016/j.physa.2019.04.263 .
+Huang C. Y., Chin, W. C. B., Fu, Y. H., & Tsai, Y. S. (in press) Beyond bond links in complex networks: Local bridges, global bridges and silk links. Physica A: Statistical Mechanics and its Applications. 
+DOI: [https://doi.org/10.1016/j.physa.2019.04.263](https://doi.org/10.1016/j.physa.2019.04.263) .
