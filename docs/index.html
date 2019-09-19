@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="UTF-8">
+  <title>HETA (Hierarchical Edge Type Analysis)</title>
+  <meta name="description" content="">
+  <meta name="author" content="Benny">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link href="css/css.css" rel="stylesheet" type="text/css">
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/skeleton.css">
+  <link rel="stylesheet" href="css/custom.css">
+  <!--<link rel="stylesheet" href="css/typicons/typicons.min.css">-->
+  <!--<link rel="stylesheet" href="css/fontawesome/css/fontawesome.min.css">
+  <link rel="stylesheet" href="css/fontawesome/css/brands.min.css">
+  <link rel="stylesheet" href="css/fontawesome/css/solid.min.css">-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typicons.font@2.0.9/src/font/typicons.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.10.1/css/fontawesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.10.1/css/brands.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.10.1/css/solid.min.css">
+
+  <!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <script type="text/javascript" async="" src="js/ga.js"></script><script id="twitter-wjs" src="js/widgets.js"></script><script src="js/jquery.js"></script>
+  <!--<script src="js/run_prettify.html"></script>-->
+  <link rel="stylesheet" href="css/github-prettify-theme.css">
+  <script src="js/site.js"></script>
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="http://getskeleton.com/dist/images/favicon.png">
+
+<script charset="utf-8" src="js/button.js"></script></head>
+<body class="code-snippets-visible">
+
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <div class="container">
+    <section class="header">
+      <h1 class="title"> HETA </h1>
+      <h2 class="title"> An algorithm for evaluating the strength of edges. </h2>
+      
+      <a class="button button-primary" href="https://github.com/wcchin/HETA" style="background-color:#18d17b;" > go to project page </a>
+      
+      
+      <div class="value-props row">
+		
+        <div class="four columns value-prop">
+		  <h1 style="color:#18d17b;"><span class="typcn typcn-flow-merge"></span></h1>
+          hierarchy
+        </div>
+        
+        <div class="four columns value-prop">
+		  <h1 style="color:#18d17b;"><span class="typcn typcn-point-of-interest"></span></h1>
+          network
+        </div>
+        
+        <div class="four columns value-prop">
+		  <h1 style="color:#18d17b;"><span class="typcn typcn-flow-switch"></span></h1>
+          and connectivity
+        </div>
+        
+      </div>
+      
+    </section>
+
+	
+    <div class="navbar-spacer"></div>
+    <nav class="navbar">
+      <div class="container">
+        <ul class="navbar-list">
+          <!--<li class="navbar-item"><a class="navbar-link" href="#"><large>HETA</large></a></li>-->
+		  
+          <li class="navbar-item">
+            <a class="navbar-link" href="#" data-popover="#codeNavPopoverheta">HETA</a>
+            <div id="codeNavPopoverheta" class="popover">
+              <ul class="popover-list">
+                <li class="popover-item">
+                  <a class="popover-link" href="#heta">HETA</a>
+                </li>
+                
+              </ul>
+            </div>
+          </li>
+          
+          <li class="navbar-item">
+            <a class="navbar-link" href="#" data-popover="#codeNavPopoverintro">Intro</a>
+            <div id="codeNavPopoverintro" class="popover">
+              <ul class="popover-list">
+                <li class="popover-item">
+                  <a class="popover-link" href="#intro">Intro</a>
+                </li>
+                
+                <li class="popover-item">
+                  <a class="popover-link" href="#install">Install</a>
+                </li>
+                
+                <li class="popover-item">
+                  <a class="popover-link" href="#usage">Usage</a>
+                </li>
+                
+              </ul>
+            </div>
+          </li>
+          
+          <li class="navbar-item">
+            <a class="navbar-link" href="#" data-popover="#codeNavPopoverarticlereference">Article reference</a>
+            <div id="codeNavPopoverarticlereference" class="popover">
+              <ul class="popover-list">
+                <li class="popover-item">
+                  <a class="popover-link" href="#articlereference">Article reference</a>
+                </li>
+                
+                <li class="popover-item">
+                  <a class="popover-link" href="#beyondbondlinksincomplexnetworks:localbridges,globalbridgesandsilklinks">Beyond Bond Links in Complex Networks: Local Bridges, Global Bridges and Silk Links</a>
+                </li>
+                
+                <li class="popover-item">
+                  <a class="popover-link" href="#highlights">Highlights</a>
+                </li>
+                
+                <li class="popover-item">
+                  <a class="popover-link" href="#abstract">Abstract</a>
+                </li>
+                
+              </ul>
+            </div>
+          </li>
+          
+        </ul>
+      </div>
+    </nav>
+    
+
+    <!-- main text area -->
+    <div class="docs-section" id="intro">
+	  <h1 id="heta">HETA</h1>
+
+<h1 id="intro">Intro</h1>
+
+<p>Hierarchical Edge Type Analysis. An algorithm for detecting edge types using common neighbor concept.</p>
+<p>This is a rewritten of: https://github.com/canslab1/Identification-Algorithm/ , into convenient function that take NetworkX Graph objects, and to be compatible with Python3.  </p>
+<h2 id="install">Install</h2>
+
+<pre><code>git clone https://github.com/wcchin/HETA.git
+cd HETA
+pip install .
+# or 
+# pip install -e .
+</code></pre>
+<h2 id="usage">Usage</h2>
+
+<p>Please check the test.py script.</p>
+<p>In simple:</p>
+<pre><code>### import necessary packages and heta package
+import networkx as nx
+import heta
+
+### read file as nx.Graph() object
+fp = 'data/net/14p.net'
+g = nx.Graph(nx.read_pajek(fp))
+
+### run algorithm using default parameter
+g, ext_dic, int_dic = heta.bridge_or_bond(g)
+
+### get all edge types
+for u, v, d in g.edges(data=True):
+    print(u, v, d['type'])
+
+### draw the results
+import matplotlib.pyplot as plt
+heta.draw_result(g, layout='spring')
+plt.show()
+
+### external and internal threshold
+print(ext_dic, int_dic)
+
+### fingerprint analysis
+### proportion of ['bond', 'local', 'global', 'silk']
+print(heta.fingerprint(g))
+</code></pre>
+<h1 id="articlereference">Article reference</h1>
+
+<h2 id="beyondbondlinksincomplexnetworks:localbridges,globalbridgesandsilklinks">Beyond Bond Links in Complex Networks: Local Bridges, Global Bridges and Silk Links</h2>
+
+<h2 id="highlights">Highlights</h2>
+
+<ul>
+<li>An identification algorithm for determining hierarchical link types is described.</li>
+<li>Multi-hierarchy level link types are identified using the common neighbor concept.</li>
+<li>Two applications are demonstrated: fingerprint analysis and network partitioning.</li>
+<li>Fingerprint analysis is used to compare topological structures among networks.</li>
+<li>Hierarchical link structures are used to partition networks into communities.</li>
+</ul>
+<h2 id="abstract">Abstract</h2>
+
+<p>Many network researchers use intuitive or basic definitions when discussing the importance of strong and <a href="https://www.sciencedirect.com/topics/physics-and-astronomy/weak-link">weak links</a> and their roles. Others use an approach best described as “if not strong, then weak” to determine the strengths and weaknesses of individual links, thus deemphasizing hierarchical network structures that allow links to express different strength levels. Here we describe our proposal for a hierarchical edge type analysis (HETA) algorithm for determining link types at multiple network hierarchy levels based on the common neighbor concept plus statistical factors such as bond links, <em>k</em>th-layer local bridges, global bridges, and silk links—all generated during long-term network development and evolution processes. Two sets of networks were used to validate our proposed algorithm, one consisting of 16 networks employed in multiple past studies, and one consisting of two types of one-dimensional small-world networks expressing different random rewiring or shortcut addition probabilities. Two applications with potential for developmental contributions are demonstrated: a network fingerprint analysis framework, and a hierarchical network community <a href="https://www.sciencedirect.com/topics/mathematics/partition-method">partition method</a>.</p>
+<p>Keywords: Network topology, Hierarchy of links, Common neighbor concept, Fingerprint analysis, Hierarchical community partition, Edge type analysis</p>
+<p>article url: https://www.sciencedirect.com/science/article/pii/S0378437119306375</p>
+<p>cite this as:<br />
+Huang C. Y., Chin, W. C. B., Fu, Y. H., &amp; Tsai, Y. S. (in press) Beyond bond links in complex networks: Local bridges, global bridges and silk links. Physica A: Statistical Mechanics and its Applications. DOI: https://doi.org/10.1016/j.physa.2019.04.263 .</p>
+    </div>
+  </div>
+
+  
+
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body></html>
