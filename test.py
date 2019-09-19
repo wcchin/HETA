@@ -24,7 +24,7 @@ for f in fs:
     print(heta.fingerprint(g))
     for u, v, d in g.edges(data=True):
         print(u, v, d['type'])
-    heta.draw_result(g, layout='sprint')
+    heta.draw_result(g, layout='spring')
     plt.show()
     break
 print('----------done----------')

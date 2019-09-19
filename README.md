@@ -41,7 +41,7 @@ for u, v, d in g.edges(data=True):
 
 # draw the results
 import matplotlib.pyplot as plt
-heta.draw_result(g, layout='sprint')
+heta.draw_result(g, layout='spring')
 plt.show()
 
 # external and internal threshold
