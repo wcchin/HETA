@@ -173,7 +173,7 @@ def processing_link_property(iter_item):
 
 
 def generate_ego_graph(g, sp):
-    for r in xrange(sp):
+    for r in range(sp):
         for n in g.nodes(data = False):
             if r == 0:
                 g.node[n][EGO_NETWORK + str(r)] = set([n])
