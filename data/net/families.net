@@ -1,0 +1,38 @@
+*network NetworkX
+*vertices 15
+1 Strozzi 0.0 0.0 ellipse
+2 Tornabuoni 0.0 0.0 ellipse
+3 Medici 0.0 0.0 ellipse
+4 Albizzi 0.0 0.0 ellipse
+5 Guadagni 0.0 0.0 ellipse
+6 Pazzi 0.0 0.0 ellipse
+7 Acciaiuoli 0.0 0.0 ellipse
+8 Bischeri 0.0 0.0 ellipse
+9 Peruzzi 0.0 0.0 ellipse
+10 Ginori 0.0 0.0 ellipse
+11 Salviati 0.0 0.0 ellipse
+12 Castellani 0.0 0.0 ellipse
+13 Lamberteschi 0.0 0.0 ellipse
+14 Ridolfi 0.0 0.0 ellipse
+15 Barbadori 0.0 0.0 ellipse
+*edges
+1 14 1.0
+1 12 1.0
+1 8 1.0
+1 9 1.0
+2 5 1.0
+2 14 1.0
+2 3 1.0
+3 15 1.0
+3 4 1.0
+3 7 1.0
+3 11 1.0
+3 14 1.0
+4 5 1.0
+4 10 1.0
+5 8 1.0
+5 13 1.0
+6 11 1.0
+8 9 1.0
+9 12 1.0
+12 15 1.0
