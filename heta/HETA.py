@@ -247,6 +247,7 @@ def random_once(g, kmax, Q=100):
 def randomizing(iter_item):
     c, g, kmax, random_pre = iter_item
     global output_random, random_dir#, random_pre
+    #print(output_random)
     not_before = True
     if output_random:
         # check if this c is processed, if so skip random and load result
@@ -340,7 +341,7 @@ def average_shortest_path_length(g):
     return aspl
 
 
-def bridge_or_bond(ginput, times=99, external=None, threads=4, kmax=None,
+def bridge_or_bond(ginput, times=100, external=None, threads=4, kmax=None,
                 run_silent=False, output_random_res=False,
                 random_dir_path='temp', random_prefix='rand_'):
 
@@ -368,6 +369,7 @@ def bridge_or_bond(ginput, times=99, external=None, threads=4, kmax=None,
     g = compute_link_property(g, kmax)
 
     if not(silent): print('calculating external threshold')
+
     if output_random:
         if not os.path.exists(random_dir):
             os.makedirs(random_dir)
@@ -685,15 +687,18 @@ def main():
     fs = [ f for f in fs if f[-4:]=='.net' ]
     #print(fs)
     #f = fs[0]
+    t0 = time.time()
     for f in fs:
         print(f)
         fp = os.path.join(test_data_dir, f)
         g = nx.Graph(nx.read_pajek(fp))
         print(g.number_of_edges())
-        g, ext_dic, int_dic = bridge_or_bond(g)
+        g, ext_dic, int_dic = bridge_or_bond(g, times=1)
         print(ext_dic, int_dic)
         print(fingerprint(g))
+    t1 = time.time()
     print('----------done----------')
+    print('total', (t1-t0)/60., 'minutes')
 
 if __name__ == '__main__':
     main()
