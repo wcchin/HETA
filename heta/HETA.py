@@ -301,7 +301,7 @@ def get_external_threshold(g, kmax, times, random_pre):
                 random_results.append((randomizing((c, g, kmax, random_pre))))
         #pbar_pool.close()
         tt1 = time.time()
-        print('randomizing used time:',(tt1-tt0)/60.)
+        print('randomizing used time: {} minutes'.format((tt1-tt0)/60.))
 
         for i in range(kmax):
             rgmeans[str(i + 1)] = [ meas[str(i + 1)] for meas, stds in random_results ]
