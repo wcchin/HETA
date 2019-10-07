@@ -225,11 +225,13 @@ def compute_link_property(g, sp):
     """
 
     #c = g.copy()
-
-    for i in range(sp):
-        g.graph[GRAPH_KEY_COMMON_NODES_LIST + str(i + 1)] = []
+    common_nodes_list = {}
+    for layer in range(1, sp+1):
+        #g.graph[GRAPH_KEY_COMMON_NODES_LIST + str(i + 1)] = []
+        common_nodes_list[GRAPH_KEY_COMMON_NODES_LIST + str(layer)] = []
 
     m0 = nx.to_numpy_matrix(g)
+<<<<<<< HEAD
     diag = np.zeros(m0.shape, int) # the rest is zero
     np.fill_diagonal(diag, 1)  # only diagonal is one
     Ms = {0: diag} # exactly k step, 0 steps can only reach oneself
@@ -260,6 +262,25 @@ def compute_link_property(g, sp):
         """
         Ms[k] = m1c
         Ms_pre[k] = mpre + m1c
+=======
+    diag = np.zeros(m0.shape, int)
+    np.fill_diagonal(diag, 1)
+    Ms = {0:diag} # exactly k step
+    Ms_pre = {0:diag} # within k steps
+    for layer in range(1, sp+1):
+        mpre = Ms_pre[layer-1]
+        m1 = m0**(layer)
+        m1a = np.matrix(np.where(m1==0, 0, 1))
+        # m1a: 1 means can reach in k steps, including one and two
+        m1b = m1a + mpre
+        # m1b: 2 means can reach in any step <=k,
+        #      1 means can only reach in exactly k steps
+        m1c = np.matrix(np.where(m1b==1, 1, 0))
+        # m1c: 1 means can only reach in exactly k steps
+        #      0 means either cannot or can be reach in any step < k
+        Ms[layer] = m1c
+        Ms_pre[layer] = mpre + m1c
+>>>>>>> 22a6fccc39f59b7aa69cb7cb3dd6efd30592b2ca
 
     ndic = {}
     i = 0
@@ -267,13 +288,13 @@ def compute_link_property(g, sp):
         ndic[n] = i
         i+=1
 
-    for l in range(1, sp+1):
-        index1 = 'w'+str(l)+'a' ## same as article, from inferior view
+    for layer in range(1, sp+1):
+        index1 = 'w'+str(layer)+'a' ## same as article, from inferior view
         #index2 = 'w'+str(l)+'b' ## from superior view
-        k = l - 1
-        ml = Ms[l]
+        k = layer - 1
+        ml = Ms[layer]
         mk = Ms[k]
-        for u1,v1 in tqdm(g.edges(), desc='layer: '+str(l)):
+        for u1,v1 in tqdm(g.edges(), desc='layer: '+str(layer)):
             u2, v2 = ndic[u1], ndic[v1] # convert name to index
             arr_u_l = np.delete(ml[u2][:], [u2,v2])
             arr_u_k = np.delete(mk[u2][:], [u2,v2])
@@ -301,12 +322,16 @@ def compute_link_property(g, sp):
                 #g[u1][v1][index2] = 0
             else:
                 g[u1][v1][index1] = common_nodes / denominator_a
-            g.graph[GRAPH_KEY_COMMON_NODES_LIST + str(l)].append(g[u1][v1][index1])
+            #g.graph[GRAPH_KEY_COMMON_NODES_LIST + str(l)].append(g[u1][v1][index1])
+            common_nodes_list[GRAPH_KEY_COMMON_NODES_LIST + str(layer)].append(g[u1][v1][index1])
 
-    for i in range(sp):
-        l = str(i + 1)
-        g.graph[GRAPH_KEY_AVG_COMMON_NODES + l] = scipy.mean(g.graph[GRAPH_KEY_COMMON_NODES_LIST + l])
-        g.graph[GRAPH_KEY_STD_COMMON_NODES + l] = scipy.std( g.graph[GRAPH_KEY_COMMON_NODES_LIST + l])
+    for layer in range(1, sp+1):
+        l = str(layer)
+        #g.graph[GRAPH_KEY_AVG_COMMON_NODES + l] = scipy.mean(g.graph[GRAPH_KEY_COMMON_NODES_LIST + l])
+        #g.graph[GRAPH_KEY_STD_COMMON_NODES + l] = scipy.std( g.graph[GRAPH_KEY_COMMON_NODES_LIST + l])
+        g.graph[GRAPH_KEY_AVG_COMMON_NODES + l] = scipy.mean(common_nodes_list[GRAPH_KEY_COMMON_NODES_LIST + l])
+        g.graph[GRAPH_KEY_STD_COMMON_NODES + l] = scipy.std(common_nodes_list[GRAPH_KEY_COMMON_NODES_LIST + l])
+
     return g
 
 
