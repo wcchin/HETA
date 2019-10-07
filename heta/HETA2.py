@@ -230,23 +230,36 @@ def compute_link_property(g, sp):
         g.graph[GRAPH_KEY_COMMON_NODES_LIST + str(i + 1)] = []
 
     m0 = nx.to_numpy_matrix(g)
-    diag = np.zeros(m0.shape, int)
-    np.fill_diagonal(diag, 1)
-    Ms = {0:diag} # exactly k step
-    Ms_pre = {0:diag} # within k steps
-    for i in range(sp):
+    diag = np.zeros(m0.shape, int) # the rest is zero
+    np.fill_diagonal(diag, 1)  # only diagonal is one
+    Ms = {0: diag} # exactly k step, 0 steps can only reach oneself
+    Ms_pre = {0: diag} # within k steps, 0 steps can only reach oneself
+    for i in range(sp): # 0~~sp-1
         mpre = Ms_pre[i]
-        m1 = m0**(i + 1)
-        m1a = np.matrix(np.where(m1==0, 0, 1))
-        # m1a: 1 means can reach in k steps, including one and two
-        m1b = m1a + mpre
-        # m1b: 2 means can reach in any step <=k,
-        #      1 means can only reach in exactly k steps
-        m1c = np.matrix(np.where(m1b==1, 1, 0))
+        k = i + 1 # 1~~sp
+        m1 = m0**(k)
+        # m1: where non-zero means the number of alternative paths from u to v, zero means not reachable from u to v
+        m1a = np.matrix(np.where(m1==0, -1, 1))  # zero to -1, >0 to 1
+        # m1a: one means reachable from u to v, including any steps
+        #      -1 means not reachable
+        m1b = m1a - mpre
+        # m1b: -1 means can only reach in any step <k but not step k
+        #       0 means can be reach in both step k and any step <k
+        #       1 means can only reach in exactly k steps <---this is our target
+        m1c = np.matrix(np.where(m1b>0, 1., 0.))
+        # m1c: 1 means can only reach in exactly k steps <---this is our target
+        #      0 means either (cannot reach in step k) or (can be reach in any step < k but not exactly step k)
+        """
+        # wrong in m1b
+        # m1b = m1a + mpre
+        # m1b: 2 means can reach in both (step k) and (any step <k),
+        #      1 means can only reach in exactly k steps ### >> wrong because also OR only any step < k
+        # m1c = np.matrix(np.where(m1b==1, 1, 0))
         # m1c: 1 means can only reach in exactly k steps
         #      0 means either cannot or can be reach in any step < k
-        Ms[i+1] = m1c
-        Ms_pre[i+1] = mpre + m1c
+        """
+        Ms[k] = m1c
+        Ms_pre[k] = mpre + m1c
 
     ndic = {}
     i = 0
