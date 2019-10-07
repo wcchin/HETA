@@ -231,7 +231,6 @@ def compute_link_property(g, sp):
         common_nodes_list[GRAPH_KEY_COMMON_NODES_LIST + str(layer)] = []
 
     m0 = nx.to_numpy_matrix(g)
-<<<<<<< HEAD
     diag = np.zeros(m0.shape, int) # the rest is zero
     np.fill_diagonal(diag, 1)  # only diagonal is one
     Ms = {0: diag} # exactly k step, 0 steps can only reach oneself
@@ -262,25 +261,6 @@ def compute_link_property(g, sp):
         """
         Ms[k] = m1c
         Ms_pre[k] = mpre + m1c
-=======
-    diag = np.zeros(m0.shape, int)
-    np.fill_diagonal(diag, 1)
-    Ms = {0:diag} # exactly k step
-    Ms_pre = {0:diag} # within k steps
-    for layer in range(1, sp+1):
-        mpre = Ms_pre[layer-1]
-        m1 = m0**(layer)
-        m1a = np.matrix(np.where(m1==0, 0, 1))
-        # m1a: 1 means can reach in k steps, including one and two
-        m1b = m1a + mpre
-        # m1b: 2 means can reach in any step <=k,
-        #      1 means can only reach in exactly k steps
-        m1c = np.matrix(np.where(m1b==1, 1, 0))
-        # m1c: 1 means can only reach in exactly k steps
-        #      0 means either cannot or can be reach in any step < k
-        Ms[layer] = m1c
-        Ms_pre[layer] = mpre + m1c
->>>>>>> 22a6fccc39f59b7aa69cb7cb3dd6efd30592b2ca
 
     ndic = {}
     i = 0
