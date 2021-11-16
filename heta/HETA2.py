@@ -123,7 +123,7 @@ def get_ego_graph(g, s, t, l):
     index     = EGO_NETWORK + str(l - 1)
     node_list = set()
     for ng in nx.neighbors(g, s):
-        if ng != t: node_list = node_list | g.node[ng][index]
+        if ng != t: node_list = node_list | g.nodes[ng][index]
     return node_list - set([s])
 
 
@@ -133,20 +133,20 @@ def processing_link_property(iter_item):
     ## from s to t
 
     base_st_nodes = set([s, t])
-    c.node[s][0]  = set() ## for removing previously accessed neighbor nodes (0~(l-1) layer neighbors)
-    c.node[t][0]  = set() ## same as above, for the other end
+    c.nodes[s][0]  = set() ## for removing previously accessed neighbor nodes (0~(l-1) layer neighbors)
+    c.nodes[t][0]  = set() ## same as above, for the other end
     s0 = set()
     t0 = set()
 
     for i in range(sp):
         l = i + 1
 
-        #c.node[s][l] = get_outgoing_ego_graph(c, s, t, l) - c.node[s][0] - base_st_nodes
-        #c.node[t][l] = get_incoming_ego_graph(c, t, s, l) - c.node[t][0] - base_st_nodes
-        c.node[s][l] = get_ego_graph(c, s, t, l) - s0 - base_st_nodes
-        c.node[t][l] = get_ego_graph(c, t, s, l) - t0 - base_st_nodes
+        #c.nodes[s][l] = get_outgoing_ego_graph(c, s, t, l) - c.nodes[s][0] - base_st_nodes
+        #c.nodes[t][l] = get_incoming_ego_graph(c, t, s, l) - c.nodes[t][0] - base_st_nodes
+        c.nodes[s][l] = get_ego_graph(c, s, t, l) - s0 - base_st_nodes
+        c.nodes[t][l] = get_ego_graph(c, t, s, l) - t0 - base_st_nodes
 
-        common_nodes = (c.node[s][l] & c.node[t][l]) | (c.node[s][l] & c.node[t][l-1]) | (c.node[s][l-1] & c.node[t][l])
+        common_nodes = (c.nodes[s][l] & c.nodes[t][l]) | (c.nodes[s][l] & c.nodes[t][l-1]) | (c.nodes[s][l-1] & c.nodes[t][l])
 
         index1 = 'w'+str(l)+'a' ## same as article, from inferior view
         #index2 = 'w'+str(l)+'b' ## from superior view
@@ -156,23 +156,23 @@ def processing_link_property(iter_item):
             g[s][t][index1] = 0
             #g[s][t][index2] = 0
         else:
-            part1_a = min(len(c.node[s][l]  ), len(c.node[t][l])  )
-            part2_a = min(len(c.node[s][l]  ), len(c.node[t][l-1]))
-            part3_a = min(len(c.node[s][l-1]), len(c.node[t][l])  )
+            part1_a = min(len(c.nodes[s][l]  ), len(c.nodes[t][l])  )
+            part2_a = min(len(c.nodes[s][l]  ), len(c.nodes[t][l-1]))
+            part3_a = min(len(c.nodes[s][l-1]), len(c.nodes[t][l])  )
             denominator_a = float(part1_a + part2_a + part3_a)
-            #part1_b = max(len(c.node[s][l]  ), len(c.node[t][l])  )
-            #part2_b = max(len(c.node[s][l]  ), len(c.node[t][l-1]))
-            #part3_b = max(len(c.node[s][l-1]), len(c.node[t][l])  )
+            #part1_b = max(len(c.nodes[s][l]  ), len(c.nodes[t][l])  )
+            #part2_b = max(len(c.nodes[s][l]  ), len(c.nodes[t][l-1]))
+            #part3_b = max(len(c.nodes[s][l-1]), len(c.nodes[t][l])  )
             #denominator_b = float(part1_b + part2_b + part3_b)
             g[s][t][index1] = float(len(common_nodes)) / denominator_a
             #g[s][t][index2] = float(len(common_nodes)) / denominator_b
 
         c.graph[GRAPH_KEY_COMMON_NODES_LIST + str(l)].append(g[s][t][index1])
 
-        #c.node[s][0] |= c.node[s][l]
-        #c.node[t][0] |= c.node[t][l]
-        s0 |= c.node[s][l]
-        t0 |= c.node[t][l]
+        #c.nodes[s][0] |= c.nodes[s][l]
+        #c.nodes[t][0] |= c.nodes[t][l]
+        s0 |= c.nodes[s][l]
+        t0 |= c.nodes[t][l]
     #pair = { g[s][t][ind]:v for ind,v in g[s][t].items() }
     #gnote = { GRAPH_KEY_COMMON_NODES_LIST + str(l): c.graph[GRAPH_KEY_COMMON_NODES_LIST + str(l)] for l in range(1, sp+1) }
     #compute_link_prop_bar.update(1)
@@ -186,18 +186,18 @@ def generate_ego_graph(g, sp):
     for r in range(sp):
         for n in g.nodes(data = False):
             if r == 0:
-                g.node[n][EGO_NETWORK + str(r)] = set([n])
+                g.nodes[n][EGO_NETWORK + str(r)] = set([n])
             else:
-                g.node[n][EGO_NETWORK + str(r)] = set(g.node[n][EGO_NETWORK + str(r - 1)])
+                g.nodes[n][EGO_NETWORK + str(r)] = set(g.nodes[n][EGO_NETWORK + str(r - 1)])
                 for ng in nx.neighbors(g, n):
-                    g.node[n][EGO_NETWORK + str(r)] = g.node[n][EGO_NETWORK + str(r)] | g.node[ng][EGO_NETWORK + str(r - 1)]
+                    g.nodes[n][EGO_NETWORK + str(r)] = g.nodes[n][EGO_NETWORK + str(r)] | g.nodes[ng][EGO_NETWORK + str(r - 1)]
 
         c.graph[GRAPH_KEY_COMMON_NODES_LIST + str(l)].append(g[s][t][index1])
 
-        #c.node[s][0] |= c.node[s][l]
-        #c.node[t][0] |= c.node[t][l]
-        s0 |= c.node[s][l]
-        t0 |= c.node[t][l]
+        #c.nodes[s][0] |= c.nodes[s][l]
+        #c.nodes[t][0] |= c.nodes[t][l]
+        s0 |= c.nodes[s][l]
+        t0 |= c.nodes[t][l]
     #pair = { g[s][t][ind]:v for ind,v in g[s][t].items() }
     #gnote = { GRAPH_KEY_COMMON_NODES_LIST + str(l): c.graph[GRAPH_KEY_COMMON_NODES_LIST + str(l)] for l in range(1, sp+1) }
     #compute_link_prop_bar.update(1)
@@ -315,7 +315,7 @@ def compute_link_property(g, sp):
     return g
 
 
-def random_once(g, kmax, Q=100):
+def random_once(g, kmax, Q=2):
     #rg = nx.DiGraph(nx.directed_configuration_model(list(d for n, d in g.in_degree()), list(d for n, d in g.out_degree()), create_using = nx.DiGraph()))
     rg = g.copy()
     if g.number_of_edges() > 2:
@@ -372,8 +372,9 @@ def get_external_threshold(g, kmax, times, random_pre):
         random_results = []
         #global pbar_pool
         #pbar_pool = tqdm(total=times)#, desc='randomizing with no. thread: '+str(threads))
-        tt0 = time.time()
-        TIME = time.time()
+        if not(silent):
+            tt0 = time.time()
+            TIME = time.time()
         if g.number_of_edges()>100:
             #print 'start randomizing with no. thread: '+str(threads)
             pool = pathos.multiprocessing.ProcessingPool(nodes=threads_no)
@@ -384,8 +385,9 @@ def get_external_threshold(g, kmax, times, random_pre):
             for c in range(times):
                 random_results.append((randomizing((c, g, kmax, random_pre))))
         #pbar_pool.close()
-        tt1 = time.time()
-        print('randomizing used time: {} minutes'.format((tt1-tt0)/60.))
+        if not(silent):
+            tt1 = time.time()
+            print('randomizing used time: {} minutes'.format((tt1-tt0)/60.))
 
         for i in range(kmax):
             rgmeans[str(i + 1)] = [ meas[str(i + 1)] for meas, stds in random_results ]
@@ -436,7 +438,9 @@ def bridge_or_bond(ginput, times=100, external=None, threads=4, kmax=None,
     #random_pre = random_prefix
 
     # use only the largest weakly connected component
-    g = sorted(nx.connected_component_subgraphs(ginput, copy=False), key=len, reverse=True)[0]
+    # g = sorted(nx.connected_component_subgraphs(ginput, copy=False), key=len, reverse=True)[0] # deprecated
+    largest_cc = max(nx.connected_components(ginput), key=len)
+    g = ginput.subgraph(largest_cc).copy()
 
     #kmax = max(1, int(nx.average_shortest_path_length(g) / 2.0)) # 決定每個節點要外看幾層，決定強弱連結
 
@@ -451,7 +455,7 @@ def bridge_or_bond(ginput, times=100, external=None, threads=4, kmax=None,
     if not(silent): print('computing link property R')
     g = compute_link_property(g, kmax)
 
-    if not(silent): print('calculating external threshold')
+    if not(silent): print('computing external threshold')
     if output_random:
         if not os.path.exists(random_dir):
             os.makedirs(random_dir)
@@ -462,6 +466,7 @@ def bridge_or_bond(ginput, times=100, external=None, threads=4, kmax=None,
         if not(silent): print('external threshold is provided, skipped randomization')
         ext_dic = external
 
+    if not(silent): print('last step: identifying edge types')
     #g, bonds, Lbridges, Gbridges, silks, int_dic = edge_type_identification(g, kmax, ext_dic, return_all_list=True)
     if not(ext_dic is None):
         g, int_dic = edge_type_identification(g, kmax, ext_dic, return_all_list=False)
