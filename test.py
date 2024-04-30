@@ -7,7 +7,7 @@ import os
 import networkx as nx
 import matplotlib.pyplot as plt
 
-import heta
+from heta import HETA as heta
 
 test_data_dir = 'data/net/'
 fs = sorted(os.listdir(test_data_dir))

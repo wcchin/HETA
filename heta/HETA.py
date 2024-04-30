@@ -618,7 +618,7 @@ def draw_mat(dg, ax=None, cmap=None):
 def draw_net(dg, pos, ax=None, color_dic=None):
     if ax is None:
         fig, ax = plt.subplots(figsize=(6,6))
-    f = nx.draw_networkx_nodes(dg, pos=pos, ax=ax, size=3, node_color='lightgrey')
+    f = nx.draw_networkx_nodes(dg, pos=pos, ax=ax, node_size=3, node_color='lightgrey')
     #f = nx.draw_networkx_labels(dg, pos=pos, ax=ax, size=3)
 
     for u,v,d in dg.edges(data=True):
